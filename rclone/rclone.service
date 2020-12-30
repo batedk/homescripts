@@ -1,0 +1,37 @@
+# /etc/systemd/system/rclone.service
+[Unit]
+Description=Google Drive (rclone)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+KillMode=none
+RestartSec=5
+ExecStart=/usr/bin/rclone mount gdrive:Media /home/bate/rclone/gdrive \
+        --config=/root/.config/rclone/rclone.conf \
+        --allow-other \
+        --dir-cache-time 1000h \
+        --umask 002 \
+        --timeout 1h \
+        --user-agent bate_dk \
+        --log-level INFO \
+        --log-file /home/bate/rclone/rclone.log \
+        --poll-interval 15s \
+        --rc \
+		--rc-addr :5572 \
+		--cache-dir=/home/bate/cache \
+        --vfs-cache-mode full \
+        --vfs-cache-max-size 500G \
+        --vfs-cache-max-age 336h \
+        --bwlimit-file 18M \
+        --vfs-read-chunk-size 32M \
+        --gid 1000 \
+        --uid 1000
+ExecStop=/bin/fusermount -uz /home/bate/rclone/gdrive
+ExecStartPost=/usr/bin/rclone rc vfs/refresh recursive=true --rc-addr 127.0.0.1:5572 _async=true
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+

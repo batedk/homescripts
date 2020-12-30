@@ -1,0 +1,15 @@
+[Unit]
+Description=/gmedia mergerfs mount
+Requires=rclone.service
+After=rclone.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/mergerfs /home/bate/rclone/cache:/home/bate/rclone/gdrive /home/bate/rclone/gmedia -o rw,use_ino,allow_other,func.getattr=newest,category.action=all,category.create=ff,cache.files=auto-full
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+
