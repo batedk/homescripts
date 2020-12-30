@@ -1,0 +1,9 @@
+[Unit]
+Description=Automated SYSCTL Updates
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/bin/sysctl-update
+
+[Install]
+WantedBy=multi-user.target

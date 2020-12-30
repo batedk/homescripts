@@ -1,0 +1,9 @@
+[Unit]
+Description=Ethtool Ring Buffer Tuning
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/bin/ethtool.sh
+
+[Install]
+WantedBy=multi-user.target
