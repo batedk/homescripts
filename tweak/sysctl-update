@@ -1,7 +1,0 @@
-#!/bin/bash
-echo "SYSCTL Update service started at $(date)" | systemd-cat -p info
-while :; do
-	curl -s https://raw.githubusercontent.com/batedk/homescripts/master/tweak/sysctl.conf >/etc/sysctl.conf
-	echo "Checked for an update on $(date), sleeping for 24 hours..."
-	sleep 86400
-done
