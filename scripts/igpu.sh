@@ -85,7 +85,7 @@ elif [ "$typed" == "3" ]; then
 	apt-get -y install i965-va-driver vainfo
 	echo " ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ "
 	echo " Hetzner iGPU / GPU HW-Transcode - finish	"
-	echo " Please reboot your server , and setup plex to hardware trancode "
+	echo " Please reboot your server , and setup plex to hardware transcode "
 	echo "	━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 	sleep 10
 elif [ "$typed" == "4" ]; then
