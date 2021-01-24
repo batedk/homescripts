@@ -3,7 +3,7 @@
 # Rclone upload script with optional Discord notification upon move completion (if something is moved)
 #
 # Recommended for use via cron
-# For example: 12 3 * * * /home/bate/tclone/move-discord.sh >/dev/null 2>&1
+# For example: 12 3 * * * /home/bate/rclone/move-discord.sh >/dev/null 2>&1
 # -----------------------------------------------------------------------------
 
 SOURCE_DIR="/home/bate/rclone/cache/"
