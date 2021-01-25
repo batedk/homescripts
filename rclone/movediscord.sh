@@ -31,7 +31,6 @@ else
             /usr/bin/rclone move -vP \
             --config=/home/bate/.config/rclone/rclone.conf \
             --drive-chunk-size 64M \
-            --use-mmap \
             --delete-empty-src-dirs \
             --fast-list \
             --log-file="$LOG_FILE" \
