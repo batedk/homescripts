@@ -18,17 +18,17 @@ if [[ ! $distribution =~ ("Debian") ]]; then
     for the time being) only supports Debian."
 	exit 1
 fi
-if [[ ! $codename =~ ("buster") ]]; then
+if [[ ! $codename =~ ("bullseye") ]]; then
 	echo "Your release ($codename) of $distribution is not supported (yet!)."
 	exit 1
 fi
 echo "Your system looks good! Let's begin the install process..."
 
-# Buster Backports + package installation
-echo -e "\ndeb http://deb.debian.org/debian buster-backports main\n" >>/etc/apt/sources.list
+# bullseye Backports + package installation
+echo -e "\ndeb http://deb.debian.org/debian bullseye-backports main\n" >>/etc/apt/sources.list
 apt-get update 2>&1
-apt-get -t buster-backports -qq upgrade -y 2>&1
-apt-get -t buster-backports -qq install linux-image-amd64 -y 2>&1
+apt-get -t bullseye-backports -qq upgrade -y 2>&1
+apt-get -t bullseye-backports -qq install linux-image-amd64 -y 2>&1
 apt-get -y -qq install zsh tmux nload htop git curl wget screen vim nload mosh hdparm ethtool 2>&1
 
 #NIC tuning
