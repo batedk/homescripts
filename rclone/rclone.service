@@ -1,37 +1,42 @@
-# /etc/systemd/system/rclone.service
 [Unit]
-Description=Google Drive (rclone)
+Description=RClone Service
 Wants=network-online.target
 After=network-online.target
+AssertPathIsDirectory=/home/bte/rclone/gdrive
 
 [Service]
 Type=notify
 KillMode=none
 RestartSec=5
-ExecStart=/usr/bin/rclone mount gdrive:Media /home/bate/rclone/gdrive \
-        --config=/root/.config/rclone/rclone.conf \
-        --allow-other \
-        --dir-cache-time 1000h \
-        --umask 002 \
-        --timeout 1h \
-        --user-agent bate_dk \
-        --log-level INFO \
-        --log-file /home/bate/rclone/rclone.log \
-        --poll-interval 15s \
-        --rc \
-	--rc-addr :5572 \
-	--cache-dir=/home/bate/cache \
-        --vfs-cache-mode full \
-        --vfs-cache-max-size 500G \
-        --vfs-cache-max-age 336h \
-        --bwlimit-file 18M \
-        --vfs-read-chunk-size 32M \
-        --gid 1000 \
-        --uid 1000
-ExecStop=/bin/fusermount -uz /home/bate/rclone/gdrive
-ExecStartPost=/usr/bin/rclone rc vfs/refresh recursive=true --rc-addr 127.0.0.1:5572 _async=true
+
+ExecStart=/usr/bin/rclone mount gdrive:Media /home/bte/rclone/gdrive \
+--config=/home/bte/.config/rclone/rclone.conf \
+--allow-other \
+--dir-cache-time 5000h \
+--log-file /opt/rclone/logs/rclone.log \
+--log-level NOTICE \
+--poll-interval 10s \
+--umask 002 \
+--rc \
+--rc-addr :5572 \
+--rc-no-auth \
+--user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36' \
+--cache-dir=/home/bte/cache \
+--drive-pacer-min-sleep 10ms \
+--drive-pacer-burst 200 \
+--vfs-cache-mode full \
+--vfs-cache-max-size 30G \
+--vfs-cache-max-age 5000h \
+--vfs-cache-poll-interval 5m \
+--gid 1002 \
+--uid 1001 \
+--bwlimit-file 32M
+
+ExecStop=/bin/fusermount -uz /home/bte/rclone/gdrive
+#ExecStartPost=/usr/bin/rclone rc vfs/refresh recursive=true --url 127.0.0.1:5572 _async=true
 Restart=on-failure
+#User=bte
+#Group=bte
 
 [Install]
-WantedBy=default.target
-
+WantedBy=multi-user.target
